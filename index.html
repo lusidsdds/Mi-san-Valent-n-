@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de San Valentín</title>
+    <style>
+        body {
+            background-color: #001f3d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .button#yes {
+            background-color: white;
+            color: #001f3d;
+        }
+
+        .button#no {
+            background-color: red;
+            color: white;
+        }
+
+        .button#yes:active {
+            transform: scale(1.1);
+        }
+
+        .button#no:active {
+            transform: scale(0.9);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .action-text {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+
+        .resize-button {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>¿Quieres ser mi San Valentín, Nahomy?</h1>
+        <button class="button" id="yes">Sí</button>
+        <button class="button" id="no">No</button>
+
+        <div id="additional-buttons" class="hidden">
+            <button class="button" id="final-yes" style="font-size: 1.5em;">¡Qué bueno que dijiste que sí! Porque aunque no, no hay opción</button>
+        </div>
+        <div id="final-no" class="hidden">
+            <button class="button" id="final-no-message" style="font-size: 1.5em;">Sí o sí, no hay más</button>
+        </div>
+
+        <div class="action-text">
+            Pulsa de nuevo el botón para agendar una cita
+        </div>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yes');
+        const noButton = document.getElementById('no');
+        const finalYesButton = document.getElementById('final-yes');
+        const finalNoButton = document.getElementById('final-no-message');
+        const additionalButtons = document.getElementById('additional-buttons');
+        const finalNo = document.getElementById('final-no');
+        let noClickCount = 0;
+
+        yesButton.addEventListener('click', () => {
+            additionalButtons.classList.remove('hidden');
+            yesButton.classList.add('hidden');
+            noButton.classList.add('hidden');
+        });
+
+        noButton.addEventListener('click', () => {
+            noClickCount++;
+            if (noClickCount >= 5) {
+                finalNo.classList.remove('hidden');
+                noButton.classList.add('hidden');
+            } else {
+                noButton.style.transform = `scale(${1 - noClickCount * 0.1})`;
+            }
+        });
+
+        finalYesButton.addEventListener('click', () => {
+            window.location.href = "https://wa.me/1234567890?text=Quiero%20agendar%20una%20cita%20de%20San%20Valentín";
+        });
+
+        finalNoButton.addEventListener('click', () => {
+            window.location.href = "https://wa.me/1234567890?text=Quiero%20agendar%20una%20cita%20de%20San%20Valentín";
+        });
+    </script>
+
+</body>
+</html>
